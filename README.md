@@ -8,4 +8,4 @@
 
 ### Maquette: 
 
-![alt text](https://douardalexandre.github.io/draw/img/maquette.png)
+![Alt text](img/maquette.png?raw=true "Maquette")
