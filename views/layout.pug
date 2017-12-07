@@ -2,10 +2,24 @@ doctype html
 html
   head
     title= title
+    //bootstrap
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css', integrity='sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp', crossorigin='anonymous')
+
+    
+
+    //bootstrap min css
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
+
+    //css
     link(rel='stylesheet', href='/stylesheets/style.css')
+
+    //font Londrina
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Londrina+Outline')
+
+   
+
   body
+    navbar
     nav.navbar.navbar-default
       div.container-fluid
         div.navbar-header
@@ -14,26 +28,41 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href='#') Node.js Auth
+          //a.navbar-brand(href='#') Draw
         div.collapse.navbar-collapse(id='bs-example-navbar-collapse-1')
           ul.nav.navbar-nav.navbar-right
             if (!user)
               li
-                a(href='/login') Login
+                a(href='/login') Connexion
               li
-                a(href='/register') Register
+                a(href='/register') S'enregistrer
             if (user)
               li
-                a Welcome #{user.name}
+                a Bienvenue #{user.name}
               li
-                a(href='/logout') Logout
-
+                a(href='/logout') Se déconnecter
+    
     div.container
       div.content
-        block content
+        if (!user)
+           h1 Draw 
+           
+        if (user)
+          block content
+    
+    #footer
+      .fcontainer
+        p.muted.credit Copyright 2017 #{title}
+
+
 
     script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js",
     integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=",
     crossorigin="anonymous")
 
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
+
+    
+
+    
+
