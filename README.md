@@ -1,11 +1,11 @@
 
 # Draw
-## Projet: app dessin html css Javascript
+## Projet: app dessin express mongodb socket.io html css Javascript
 
 ## Auteurs: Alexandre Douard
 
-### github page:  https://douardalexandre.github.io/draw/
+### installation: clone + npm install +  npm start
 
 ### Maquette: 
 
-![Alt text](img/maquette.png?raw=true "Maquette")
+![Alt text](public/img/maquette.png?raw=true "Maquette")

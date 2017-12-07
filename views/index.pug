@@ -1,7 +1,14 @@
 extends layout
 
 block content
-  canvas(id='canvas')
-  script(src='/javascript/draw.js')
+
+  if (!user)
+      h1 Draw 
+  if (user)
+      canvas(id='canvas')
+      script(src='/javascript/draw.js') 
+
+ 
+	
 
   
