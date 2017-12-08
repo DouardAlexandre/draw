@@ -3,10 +3,15 @@ extends layout
 block content
 
   if (!user)
-      h1 Draw 
+    h1.accueil Draw 
   if (user)
-      canvas(id='canvas')
-      script(src='/javascript/draw.js') 
+    div.boxMenu
+      a.menu(href='/game') Solo
+    div.boxMenu
+      a.menu(href='#') Multijoueurs
+    div.boxMenu
+      a.menu(href='#') Scores
+      
 
  
 	

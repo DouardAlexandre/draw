@@ -3,11 +3,11 @@
  //This is just implementing basic MVC pattern.
 
 
-var mongoose = require("mongoose");
-var passport = require("passport");
-var User = require("../models/User");
+ var mongoose = require("mongoose");
+ var passport = require("passport");
+ var User = require("../models/User");
 
-var userController = {};
+ var userController = {};
 
 // Restrict access to root page
 userController.home = function(req, res) {
@@ -32,11 +32,16 @@ userController.doRegister = function(req, res) {
   });
 };
 
+//flash message
+//passport.authenticate('local', { failureFlash: 'Invalid username or password.' });
+
 // Go to login page
 userController.login = function(req, res) {
   res.render('login');
 };
-
+userController.game = function(req, res) {
+  res.render('game');
+};
 // Post login
 userController.doLogin = function(req, res) {
   passport.authenticate('local')(req, res, function () {
