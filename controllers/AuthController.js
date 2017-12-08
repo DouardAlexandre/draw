@@ -39,9 +39,7 @@ userController.doRegister = function(req, res) {
 userController.login = function(req, res) {
   res.render('login');
 };
-userController.game = function(req, res) {
-  res.render('game');
-};
+
 // Post login
 userController.doLogin = function(req, res) {
   passport.authenticate('local')(req, res, function () {

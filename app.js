@@ -15,6 +15,7 @@ mongoose.connect('mongodb://localhost/node-auth')
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var game = require('./routes/game');
 
 var app = express();
 
@@ -42,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-
+app.use('/game', game);
 
 //passport configuration.
 var User = require('./models/User');
