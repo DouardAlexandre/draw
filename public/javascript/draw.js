@@ -1,8 +1,10 @@
 
 
+
+
 $(window).ready(function() {
 
-
+  
     //Canvas
     var canvas = document.getElementById('canvas'),
     context = canvas.getContext("2d");

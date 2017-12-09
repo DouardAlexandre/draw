@@ -11,17 +11,23 @@ canvas {
   height: 100vh; 
   width: 100vw; 
 }
+/*--------------header ---------------*/
 
 nav.navbar.navbar-default{
   position:absolute;
   height: 6rem;
   width: 100vw; 
-  
+  z-index: 10;
   background-image: url(../img/triangles.png);
   background-repeat: repeat;
   line-height: 6rem;
   margin:0;
+  border:none;
+  border-radius: 0;
 }
+
+/*--------------all pug content & containers ---------------*/
+
 .container, .content{
 
   height: 100vh; 
@@ -29,31 +35,46 @@ nav.navbar.navbar-default{
   margin:0;
   padding:0;
   font-family: 'Londrina Outline', cursive;
-  text-align: center;
 }
 
-h1.accueil{
+/*-------------- titre draw ---------------*/
+
+.accueil{
   margin: 0;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 23rem;
+  min-width: 80rem;
 }
+
+.accueil .letter {
+  display: inline-block;
+  line-height: 1em;
+}
+
+/*-------------- select 3 option game ---------------*/
+
 div.boxMenu{
-  
-  width:10rem;
- 
-  background-color: red;
-  margin-left:0;
+ height: 70rem;
+ width: 100%;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+
 }
 a.menu{
+  margin:auto;
   outline:none;
   text-decoration: none;
   font-size: 12rem;
 }
-#footer{
+/*------------------------------Footer-----------------------------*/
 
+#footer{
+  z-index: 9;
   position:absolute;
   bottom:0;
   height: 6rem;
@@ -70,40 +91,55 @@ a.menu{
   line-height: 6rem;
 }
 
-
-
+/*------------------------------Formulaires-----------------------------*/
 
 .form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
+ background: transparent;
+ //border: 1px solid black;
+ max-width: 360px;
+ padding: 15px;
+ margin: 0 auto;
 }
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-  margin-bottom: 10px;
+
+.form-signin input {
+ background: transparent;
+ border: 1px solid black;
+ font-size: 4rem;
+
+ margin-top: 4rem;
+ margin-bottom: 4rem;
+ height: 6rem;
 }
-.form-signin .checkbox {
-  font-weight: normal;
+
+.btn.btn-block{
+  background-color: transparent;
+  font-size: 12rem;
+  outline: none;
 }
-.form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
+.content{
+ display: flex;
+ align-items: center;
+ text-align: center;
 }
-.form-signin .form-control:focus {
-  z-index: 2;
+.box2{
+  font-size: 12rem;
 }
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+
+.content > div.box1, .content > div.box2 {
+  flex: 1;
 }
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+.form-signin-heading{
+  font-size: 12rem;
+}
+.form-control:focus {
+  border-color:black;
+  -webkit-box-shadow: none;
+  outline: none;
+}
+
+
+.penlogo{
+  transform:rotate(80deg);
+  position:absolute;
+  top:0;
 }
