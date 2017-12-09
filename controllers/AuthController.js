@@ -40,11 +40,24 @@ userController.login = function(req, res) {
   res.render('login');
 };
 
+
+
 // Post login
 userController.doLogin = function(req, res) {
   passport.authenticate('local')(req, res, function () {
     res.redirect('/');
   });
+};
+
+
+
+
+
+userController.game = function(req, res) {
+  
+     res.render('game', { user: req.user });
+ 
+ 
 };
 
 // logout

@@ -3,6 +3,8 @@ var router = express.Router();
 var auth = require("../controllers/AuthController.js");
 
 
+//router.use('/game', require(game));
+
 // restrict index for logged in user only
 router.get('/', auth.home);
 
@@ -21,10 +23,10 @@ router.post('/login', auth.doLogin);
 // route for logout action
 router.get('/logout', auth.logout);
 
-router.get('/', function(req, res, next) {
-    
-    res.render('game', { title: 'game' });
-});
+
+
+router.get('/game', auth.game);
+
 
 module.exports = router;
 

@@ -1,8 +1,9 @@
-var express = require('express');
-var router = express.Router();
+module.exports = function(app) {
 
-router.get("/game", (req, res) => {
-    res.render("game");
-};
+	app.get("/game/", function(req, res) {
 
-module.exports = router;
+		res.render('game');
+
+	});
+	
+}
