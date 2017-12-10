@@ -16,8 +16,9 @@ mongoose.connect('mongodb://localhost/node-auth')
 var index = require('./routes/index');
 var users = require('./routes/users');
 var game = require("./routes/game");
-
+//var draw = require("./public/javascript/draw.js");
 var app = express();
+
 
 
 
@@ -27,18 +28,26 @@ app.set('view engine', 'pug');
 
 
 
+
+
+
+
+
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 // initialize passport and express-session.
 app.use(require('express-session')({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));

@@ -4,19 +4,14 @@ block content
 
   if (!user)
     div.accueil
-      span.letter D 
-      span.letter r
-      span.letter a 
-      span.letter w  
+      span.letter.letterd D 
+      span.letter.letterr r
+      span.letter.lettera a 
+      span.letter.letterw w  
       img.pen(src='/img/pen.png' alt="pen")
   if (user)
     div.boxMenu
       a.menu(href='/game') Solo
-      a.menu(href='#') Multijoueurs
-      a.menu(href='#') Scores
-      
-
- 
-	
-
-  
+      a.menu(href='/game') Multijoueurs
+      a.menu(href='/game') Scores
+    
