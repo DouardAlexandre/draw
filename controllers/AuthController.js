@@ -40,8 +40,6 @@ userController.login = function(req, res) {
   res.render('login');
 };
 
-
-
 // Post login
 userController.doLogin = function(req, res) {
   passport.authenticate('local')(req, res, function () {
@@ -49,15 +47,19 @@ userController.doLogin = function(req, res) {
   });
 };
 
+// Go to solo page
+userController.solo = function(req, res) {
+ res.render('solo', { user: req.user });
+};
 
+// Go to multijoueur page
+userController.multijoueur = function(req, res) {
+ res.render('multijoueur', { user: req.user });
+};
 
-
-
-userController.game = function(req, res) {
-  
-     res.render('game', { user: req.user });
- 
- 
+// Go to scores page
+userController.scores = function(req, res) {
+ res.render('scores', { user: req.user });
 };
 
 // logout

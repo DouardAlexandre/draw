@@ -10,29 +10,21 @@ var LocalStrategy = require('passport-local').Strategy;
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/node-auth')
-  .then(() =>  console.log('connection successful'))
-  .catch((err) => console.error(err));
+.then(() =>  console.log('connection successful'))
+.catch((err) => console.error(err));
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var game = require("./routes/game");
-//var draw = require("./public/javascript/draw.js");
+var solo = require("./routes/solo");
+var multijoueur = require("./routes/multijoueur");
+var scores = require("./routes/scores");
+
+
 var app = express();
-
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
-
-
-
-
-
-
-
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -43,9 +35,9 @@ app.use(cookieParser());
 
 // initialize passport and express-session.
 app.use(require('express-session')({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
 }));
 
 app.use(passport.initialize());
@@ -54,8 +46,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/game', game);
-
+app.use('/solo', solo);
+app.use('/multijoueur', multijoueur);
+app.use('/scores', scores);
 
 //passport configuration.
 var User = require('./models/User');

@@ -7,9 +7,11 @@ block content
     form.form-signin(role='form', action='/login', method='post')
       h2.form-signin-heading Connexion
       label.sr-only(for='inputEmail')
-      input.form-control(type='text', name='username', id='inputEmail', placeholder='Username', required, autofocus)
-      input.form-control(type='password', name='password', id='inputPassword', placeholder='Password')
+      input.form-control(type='text', name='username', id='inputEmail', placeholder='Nom joueur', required, autofocus)
+      input.form-control(type='password', name='password', id='inputPassword', placeholder='Mot de passe')
+
       button.btn.btn-block(type='submit') ok
+  div.line
   div.box2
     p FACEBOOK
     p TWITTER
