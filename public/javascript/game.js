@@ -3,7 +3,7 @@
 (function() {
   //connection entre serveur et client
   var socket = io.connect();
-  socket.emit('create', 'room1');
+ 
   
   var canvas = document.getElementById('canvas');
   var colors = document.getElementsByClassName('color');

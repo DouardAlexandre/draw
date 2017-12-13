@@ -11,24 +11,83 @@
  var http = require('http').Server(app);
 
  // Create a Socket.IO server and attach it to the http server
- var io = require('socket.io')(http);
+ const io = require('socket.io')(http);
 
  //Get port from environment and store in Express.
  var port = normalizePort(process.env.PORT || '3000');
  app.set('port', port);
- var user = 0;
-// Socket now listening to HTTP server
-function onConnection(socket){
+ // Socket now listening to HTTP server
 
- 
+ var roomno = 1;
 
-  socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+ var numUsers = 0;
+
+ //broadcast drawing
+ io.on('connection', function(socket){
+
+
+
+  //console.log('a user has joined socket');
+
   
 
+  //Increase roomno if 2 clients are present in a room.
+  if(io.nsps['/'].adapter.rooms["room-"+roomno] && io.nsps['/'].adapter.rooms["room-"+roomno].length > 1 ) roomno++;
 
-}
+ console.log('num room ='+roomno);
 
-io.on('connection', onConnection);
+
+
+ socket.join("room-"+roomno);
+
+ 
+ socket.on('drawing', (data) => socket.in("room-"+roomno).emit('drawing', data));
+ 
+
+  //Send this event to everyone in the room.
+  //io.sockets.in("room-"+roomno).emit('connectToRoom', "You are in room no. "+roomno);
+  
+  //console.log(roomno);
+  //console.log(User);
+  /*io.clients((error, clients) => {
+
+    if (error) throw error;
+    console.log(clients);
+
+    if(clients === 2) {
+      console.log(clients);
+    } 
+
+  });*/
+  socket.on('disconnec', (reason) => {
+    socket.leave("room-"+roomno);
+    //let rooms = Object.keys(socket.rooms);
+    console.log('out');
+  });
+
+
+
+
+});
+
+
+
+
+//users room
+/*function Connection(client){
+
+ client.on('connection', function(id){
+  user++;
+  console.log(id);
+  console.log('user++');
+  client.on('disconnect', function(){
+    console.log('a user has lived');
+  });
+});
+ 
+}*/
+
+
 
 /*socket.on('create', function (room) {
   socket.join(room);
