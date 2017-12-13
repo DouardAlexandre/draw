@@ -1,10 +1,10 @@
 
 # Draw
-## Projet: app dessin express mongodb socket.io html css Javascript
+## Projet: app dessin express mongodb socket.io html css Javascript Bootstrap Jquery anime.js
 
-## Auteurs: Alexandre Douard
+## Auteur: Alexandre Douard
 
-### installation: clone + npm install +  npm start
+### installation: Mongodb --> clone + npm install + npm start
 
 ### Maquette: 
 
