@@ -3,8 +3,16 @@
 (function() {
   //connection entre serveur et client
   var socket = io.connect();
- 
-  
+
+  function init() {
+    // add listeners for our room buttons
+    const buttons = document.querySelectorAll('button[data-mode]');
+    for(const button of buttons) {
+      //console.log(button);
+      button.addEventListener('click', handleRoomClick); 
+    }
+  }
+  document.addEventListener("DOMContentLoaded", init);
   var canvas = document.getElementById('canvas');
   var colors = document.getElementsByClassName('color');
   var context = canvas.getContext('2d');
@@ -27,8 +35,29 @@
 
   window.addEventListener('resize', onResize, false);
   onResize();
+  
 
 
+
+
+  function handleRoomClick() {
+    // join a room
+
+    const choose = this.getAttribute('data-mode');
+ 
+      socket.emit('choose', choose);
+    
+
+    // deal with interface below...
+    const buttons = document.querySelectorAll('button[data-mode]');
+    for(const button of buttons) {
+      button.classList.add('hidden');
+    }
+    //document.body.appendChild(
+      //document.createElement('h2'))
+    //.textContent = `Room ${room}`;
+
+  }
   function drawLine(x0, y0, x1, y1, color, emit){
     context.beginPath();
     context.moveTo(x0, y0);

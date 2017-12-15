@@ -18,7 +18,7 @@
  app.set('port', port);
  // Socket now listening to HTTP server
 
- var roomno = 1;
+ var num = 1;
 
  
 
@@ -26,30 +26,44 @@
  io.on('connection', function(socket){
 
 
-    //Increase roomno if 2 clients are present in a room.
-    if(io.nsps['/'].adapter.rooms["room-"+roomno] && io.nsps['/'].adapter.rooms["room-"+roomno].length > 1 ) roomno++;
 
-    console.log('num room ='+roomno);
 
-    socket.join("room-"+roomno, () => {
+    //console.log('num room ='+num);
+    let room;
+  //   socket.join("room-"+num, () => {
 
-     let rooms = Object.keys(socket.rooms);
-     console.log(rooms); // [ <socket.id>, 'room 237' ]
+  //    let rooms = Object.keys(socket.rooms);
+  //    console.log(rooms); // [ <socket.id>, 'room 237' ]
 
-    io.to("room-"+roomno, 'a new user has joined the room'+roomno); // broadcast to everyone in the room
-  });
- //socket.join("room-"+roomno);
- var nsp = io.of("room-"+roomno);
+  //   io.to("room-"+num, 'a new user has joined the room'+num); // broadcast to everyone in the room
+  // });
+  socket.on('choose', (choose) => {
+    if(choose===1) {
+        //Increase num if 2 clients are present in a room.
+        if(io.nsps['/'].adapter.rooms["room-"+num] && io.nsps['/'].adapter.rooms["room-"+num].length > 1 ) num++;
+        console.log(num);
+        room = `room-+${num}`;
+        socket.join(room);
+        var nsp = io.in("room-"+num);
 
- nsp.on('drawing', function(data){ 
-  io.to("room-"+roomno).emit('drawing', data);
-});
+        nsp.on('drawing', function(data){ 
+          io.to("room-"+num).emit('drawing', data);
+        });
+      } else {
+        console.log(num);
+      }
 
-//socket.to("room-"+roomno).emit('drawing', data);
+
+
+    }); 
+ //socket.join("room-"+num);
+
+
+//socket.to("room-"+num).emit('drawing', data);
   //Send this event to everyone in the room.
-  //io.sockets.in("room-"+roomno).emit('connectToRoom', "You are in room no. "+roomno);
+  //io.sockets.in("room-"+num).emit('connectToRoom', "You are in room no. "+num);
   
-  //console.log(roomno);
+  //console.log(num);
   //console.log(User);
   /*io.clients((error, clients) => {
 
@@ -62,7 +76,7 @@
 
   });*/
   socket.on('disconnec', (reason) => {
-    socket.leave("room-"+roomno);
+    //socket.leave("room-"+num);
     //let rooms = Object.keys(socket.rooms);
     console.log('out');
   });

@@ -207,3 +207,7 @@ a.menu{
   opacity:.5;
   background-color: black;
 }
+
+.hidden {
+  display: none;
+}
