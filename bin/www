@@ -1,0 +1,175 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+ var app = require('../app');
+ var debug = require('debug')('draw:server');
+
+ // Create HTTP server.
+ var http = require('http').Server(app);
+
+ // Create a Socket.IO server and attach it to the http server
+ const io = require('socket.io')(http);
+
+ //Get port from environment and store in Express.
+ var port = normalizePort(process.env.PORT || '3000');
+ app.set('port', port);
+ // Socket now listening to HTTP server
+
+ var num = 1;
+
+ 
+
+ //broadcast drawing
+ io.on('connection', function(socket){
+
+
+
+
+    //console.log('num room ='+num);
+    let room;
+  //   socket.join("room-"+num, () => {
+
+  //    let rooms = Object.keys(socket.rooms);
+  //    console.log(rooms); // [ <socket.id>, 'room 237' ]
+
+  //   io.to("room-"+num, 'a new user has joined the room'+num); // broadcast to everyone in the room
+  // });
+  socket.on('choose', (choose) => {
+    if(choose===1) {
+        //Increase num if 2 clients are present in a room.
+        if(io.nsps['/'].adapter.rooms["room-"+num] && io.nsps['/'].adapter.rooms["room-"+num].length > 1 ) num++;
+        console.log(num);
+        room = `room-+${num}`;
+        socket.join(room);
+        var nsp = io.in("room-"+num);
+
+        nsp.on('drawing', function(data){ 
+          io.to("room-"+num).emit('drawing', data);
+        });
+      } else {
+        console.log(num);
+      }
+
+
+
+    }); 
+ //socket.join("room-"+num);
+
+
+//socket.to("room-"+num).emit('drawing', data);
+  //Send this event to everyone in the room.
+  //io.sockets.in("room-"+num).emit('connectToRoom', "You are in room no. "+num);
+  
+  //console.log(num);
+  //console.log(User);
+  /*io.clients((error, clients) => {
+    if (error) throw error;
+    console.log(clients);
+    if(clients === 2) {
+      console.log(clients);
+    } 
+  });*/
+  socket.on('disconnec', (reason) => {
+    //socket.leave("room-"+num);
+    //let rooms = Object.keys(socket.rooms);
+    console.log('out');
+  });
+
+
+
+
+});
+
+
+
+
+//users room
+/*function Connection(client){
+ client.on('connection', function(id){
+  user++;
+  console.log(id);
+  console.log('user++');
+  client.on('disconnect', function(){
+    console.log('a user has lived');
+  });
+});
+ 
+}*/
+
+
+
+/*socket.on('create', function (room) {
+  socket.join(room);
+});*/
+
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+ http.listen(port, () => console.log('listening on port ' + port));
+ http.on('error', onError);
+ http.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+ function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+ function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+  ? 'Pipe ' + port
+  : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+    console.error(bind + ' requires elevated privileges');
+    process.exit(1);
+    break;
+    case 'EADDRINUSE':
+    console.error(bind + ' is already in use');
+    process.exit(1);
+    break;
+    default:
+    throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+ function onListening() {
+  var addr = http.address();
+  var bind = typeof addr === 'string'
+  ? 'pipe ' + addr
+  : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
