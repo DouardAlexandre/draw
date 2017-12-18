@@ -38,14 +38,11 @@
 
     // first client
     if(io.of('/').adapter.rooms[room].length === 1 ){
-if(textInput === randWord) {
-  
-      socket.emit('end');
-    }
+
       var wait = "wait for other player";
       socket.emit('wait', wait);
     };
-
+   
     // second client
     if(io.of('/').adapter.rooms[room].length > 1 ){
 
@@ -66,14 +63,14 @@ if(textInput === randWord) {
    };
 
    io.clients((error, clients) => {
-      if (error) throw error;
-      console.log(clients.length);
-    });
+    if (error) throw error;
+    console.log(clients.length);
+  });
 
     //end game
     socket.on('textInput', function(textInput, randWord){ 
      if(textInput === randWord) {
-  
+
       socket.emit('end');
     }else{
 
@@ -91,10 +88,10 @@ if(textInput === randWord) {
  }); 
 
 
-   
 
 
- });
+
+  });
 
 
   socket.on('disconnect', function() {console.log('outttttttttt')});   

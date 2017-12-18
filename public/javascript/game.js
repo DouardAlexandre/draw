@@ -46,7 +46,7 @@
     // join a room
 
     const start = this.getAttribute('data-mode');
-    console.log(start);
+
     socket.emit('start', start);
     
     
@@ -63,8 +63,6 @@
       newGuess.className = 'guess'; 
       document.body.appendChild(
         newGuess).textContent = guess;
-      
-      
 
 
     });
