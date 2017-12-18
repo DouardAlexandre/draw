@@ -19,91 +19,86 @@
  // Socket now listening to HTTP server
 
  var num = 1;
-
- 
+ var words = ["poire", "pomme","maison","poire","oeil","araignée","éclair"];
+ var round = 0;
 
  //broadcast drawing
  io.on('connection', function(socket){
 
 
 
+  socket.on('start', (start) => {
 
-    //console.log('num room ='+num);
-    let room;
-  //   socket.join("room-"+num, () => {
+   var room = 'room-'+num;
 
-  //    let rooms = Object.keys(socket.rooms);
-  //    console.log(rooms); // [ <socket.id>, 'room 237' ]
 
-  //   io.to("room-"+num, 'a new user has joined the room'+num); // broadcast to everyone in the room
-  // });
-  socket.on('choose', (choose) => {
-    if(choose===1) {
-        //Increase num if 2 clients are present in a room.
-        if(io.nsps['/'].adapter.rooms["room-"+num] && io.nsps['/'].adapter.rooms["room-"+num].length > 1 ) num++;
-        console.log(num);
-        room = `room-+${num}`;
-        socket.join(room);
-        var nsp = io.in("room-"+num);
+    socket.join(room);  //   room 1 room creation
 
-        nsp.on('drawing', function(data){ 
-          io.to("room-"+num).emit('drawing', data);
-        });
-      } else {
-        console.log(num);
-      }
+    console.log('drawing to room '+num);
+
+
+    io.clients((error, clients) => {
+      if (error) throw error;
+      console.log(clients.length);
+    });
 
 
 
+    
+    // first client
+    if(io.of('/').adapter.rooms[room].length === 1 ){
+
+      var wait = "wait for other player";
+      socket.emit('wait', wait);
+
+    };
+
+    // second client
+    if(io.of('/').adapter.rooms[room].length > 1 ){
+
+     var randWord = words[Math.floor(Math.random() * words.length)];
+     guess = "Dessinez : "+ randWord;
+     socket.emit('guess', guess);
+     io.to(room).emit('noWait',randWord);
+
+
+     socket.on('drawing', function(data){ 
+      io.to(room).emit('drawing', data);
     }); 
- //socket.join("room-"+num);
 
 
-//socket.to("room-"+num).emit('drawing', data);
-  //Send this event to everyone in the room.
-  //io.sockets.in("room-"+num).emit('connectToRoom', "You are in room no. "+num);
-  
-  //console.log(num);
-  //console.log(User);
-  /*io.clients((error, clients) => {
-    if (error) throw error;
-    console.log(clients);
-    if(clients === 2) {
-      console.log(clients);
-    } 
-  });*/
-  socket.on('disconnec', (reason) => {
-    //socket.leave("room-"+num);
-    //let rooms = Object.keys(socket.rooms);
-    console.log('out');
-  });
+     num++;
+
+   };
+
+   console.log(socket.rooms);
+   //end game
+   socket.on('textInput', function(textInput, randWord){ 
+    
+
+     if(textInput === randWord) {
+      socket.emit('end');
+      console.log("end");
+    }else{
+
+      var wrong = ["Pas vraiment", "C'est pas ça...","L'important c'est de participer","La prochaine fois peut-être","Il dessine si mal que ça?"];
+      var randWrong = wrong[Math.floor(Math.random() * wrong.length)];
+      socket.emit('wrong', randWrong);
+      console.log(randWrong);
+      round++;
+      if(round===3) {
+       io.emit('end');
+     }
+   }
+ }); 
 
 
 
+ });
+
+  socket.on('disconnect', function() {console.log('outttttttttt')});   
 
 });
-
-
-
-
-//users room
-/*function Connection(client){
- client.on('connection', function(id){
-  user++;
-  console.log(id);
-  console.log('user++');
-  client.on('disconnect', function(){
-    console.log('a user has lived');
-  });
-});
- 
-}*/
-
-
-
-/*socket.on('create', function (room) {
-  socket.join(room);
-});*/
 
 
 /**

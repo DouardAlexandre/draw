@@ -1,12 +1,8 @@
 extends layout
 
 block content
-	div.modejeu
-		//-a.mode(href='#') Dessiner        
-		//-a.mode(href='#') Deviner
-		button.mode(data-mode ='1') Dessiner
-		button.mode(data-mode ='2') Deviner
-		
-		canvas(id='canvas')
-		script(src='/javascript/game.js')
-		//-button.hidden(id="sendBtn") Send 
+  button.choose(data-mode ='1') Start 
+  
+  canvas(id='canvas')
+  script(src='/javascript/game.js')
+  //-button.hidden(id="sendBtn") Send 

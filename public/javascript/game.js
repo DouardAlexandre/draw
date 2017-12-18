@@ -12,6 +12,8 @@
       button.addEventListener('click', handleRoomClick); 
     }
   }
+
+
   document.addEventListener("DOMContentLoaded", init);
   var canvas = document.getElementById('canvas');
   var colors = document.getElementsByClassName('color');
@@ -43,21 +45,94 @@
   function handleRoomClick() {
     // join a room
 
-    const choose = this.getAttribute('data-mode');
- 
-      socket.emit('choose', choose);
+    const start = this.getAttribute('data-mode');
+    console.log(start);
+    socket.emit('start', start);
     
-
+    
     // deal with interface below...
     const buttons = document.querySelectorAll('button[data-mode]');
     for(const button of buttons) {
       button.classList.add('hidden');
     }
-    //document.body.appendChild(
-      //document.createElement('h2'))
-    //.textContent = `Room ${room}`;
 
-  }
+
+    socket.on('guess', (guess , randWord) => {
+
+      console.log(guess);
+      //$("#canvas").css('display' , 'none');
+      var newGuess  = document.createElement('h2');
+      newGuess.className = 'guess'; 
+      document.body.appendChild(
+        newGuess).textContent = guess;
+      console.log(randWord);
+      
+      
+
+
+    });
+
+    socket.on('wait', (wait) => {
+      var waitOtherPlayer = document.createElement('h2');
+      waitOtherPlayer.className = 'wait'; 
+      document.body.appendChild(waitOtherPlayer).textContent = wait;
+
+
+      var devinez = document.createElement('button');
+      devinez.id = "devinez";
+       //devinez.text = "ok";
+       $(".content").append(devinez);
+
+       var input = document.createElement('input');
+       input.type = "text";
+       input.id = "input";
+       $(".content").append(input);
+     });
+
+    socket.on('noWait', (randWord) => {
+
+      $(".wait" ).remove();
+      $("#input").css("display", "block");
+      $("#input").show().focus();
+      $("#devinez").show();
+
+      $("#devinez").click(function(){
+        var textInput = $("input").val();
+        socket.emit('textInput', textInput, randWord);
+
+      });
+
+
+
+      
+
+    });
+
+    socket.on('wrong', (randWrong) => {
+      $(".wrong").remove();
+      var wrongWord = document.createElement('h2');
+      wrongWord.className = 'wrong';
+      wrongWord.innerHTML = randWrong;
+      $(".content").append(wrongWord);
+
+
+    });
+
+
+    socket.on('end', (end) => {
+
+     $(".wrong").remove();
+     $("#input").remove();
+     $("#devinez").remove();
+     $(".guess").remove();
+     $(".wait" ).remove();
+
+     
+     
+   });
+
+  };
+
   function drawLine(x0, y0, x1, y1, color, emit){
     context.beginPath();
     context.moveTo(x0, y0);
