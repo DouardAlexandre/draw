@@ -59,24 +59,20 @@
 
     socket.on('guess', (guess , randWord) => {
 
-      console.log(guess);
-      //$("#canvas").css('display' , 'none');
       var newGuess  = document.createElement('h2');
       newGuess.className = 'guess'; 
       document.body.appendChild(
         newGuess).textContent = guess;
-      console.log(randWord);
       
       
 
 
     });
-
+    //client 1
     socket.on('wait', (wait) => {
       var waitOtherPlayer = document.createElement('h2');
       waitOtherPlayer.className = 'wait'; 
       document.body.appendChild(waitOtherPlayer).textContent = wait;
-
 
       var devinez = document.createElement('button');
       devinez.id = "devinez";
@@ -87,8 +83,9 @@
        input.type = "text";
        input.id = "input";
        $(".content").append(input);
-     });
 
+     });
+    //client 2
     socket.on('noWait', (randWord) => {
 
       $(".wait" ).remove();
@@ -99,7 +96,9 @@
       $("#devinez").click(function(){
         var textInput = $("input").val();
         socket.emit('textInput', textInput, randWord);
-
+        if(textInput === randWord) {
+          $(".wrong").remove();
+        }
       });
 
 
@@ -119,7 +118,7 @@
     });
 
 
-    socket.on('end', (end) => {
+    socket.on('end', (data) => {
 
      $(".wrong").remove();
      $("#input").remove();
