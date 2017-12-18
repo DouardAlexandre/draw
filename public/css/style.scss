@@ -1,55 +1,56 @@
 
+$Londrina:'Londrina Outline', cursive;
+
+
+@mixin selectMouse() {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+}
 
 body {
   width:100vw;
+
   height: 100vh;
   background-image: url(../img/square.png);
   background-repeat: repeat;
   overflow:hidden;
   position: relative;
-
-  align-items: center;
   text-align: center;
+  canvas { 
 
+    height: 100vh; 
+    width: 100vw; 
+
+  }
 }
-canvas { 
 
-  height: 100vh; 
-  width: 100vw; 
-
-}
 /*--------------header ---------------*/
 a{
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
+  @include selectMouse(); 
 }
 h2.guess{
   position: absolute;
   bottom:12rem;
-  font-family: 'Londrina Outline', cursive;
+  font-family : $Londrina; 
   font-size: 10rem;
   margin:0;
   left:0;
   right: 0;
   margin-right: auto;
   margin-left: auto;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
+  @include selectMouse(); 
 }
 h2.wait{
   position: absolute;
   top:40%;
-  font-family: 'Londrina Outline', cursive;
+  font-family: $Londrina;
   font-size: 10rem;
   left:0;
   right: 0;
   margin-right: auto;
   margin-left: auto;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
+  @include selectMouse(); 
 }
 nav.navbar.navbar-default{
   position:absolute;
@@ -72,7 +73,7 @@ nav.navbar.navbar-default{
   width: 100vw; 
   margin:0;
   padding:0;
-  font-family: 'Londrina Outline', cursive;
+  font-family:$Londrina;
 }
 
 /*-------------- titre draw ---------------*/
@@ -128,9 +129,7 @@ a.menu{
 }
 .footercontainer p{
   line-height: 6rem;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
+  @include selectMouse(); 
 }
 
 /*------------------------------Formulaires login register-----------------------------*/
@@ -214,13 +213,11 @@ a.menu{
   transform:rotate(80deg);
   position:absolute;
   left:0;
-  top:0
+  top:0;
   right:0;
   bottom:0;
   margin:auto;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
+  @include selectMouse(); 
 }
 .modejeu{
   width: 100%;
@@ -270,7 +267,6 @@ button.choose{
   font-size: 12rem;
   outline:none;
   text-decoration: none;
-  
   background: transparent;
   position: absolute;
 
@@ -282,13 +278,10 @@ button.choose{
  position: absolute;
  border: 1px black solid;
  display:none;
- font-family: 'Londrina Outline', cursive;
+ font-family: $Londrina;
  font-size: 6rem;
  background: transparent;
-
- -moz-user-select: none;
- -khtml-user-select: none;
- -webkit-user-select: none;
+ @include selectMouse(); 
 }
 
 #input:focus{
@@ -296,14 +289,14 @@ button.choose{
 }
 
 #devinez{
-display:none;
- position: absolute;
- width:4rem;
- height: 4rem;
- font-size: 6rem;
- background: transparent;
-bottom:10rem;
- 
+  display:none;
+  position: absolute;
+  width:4rem;
+  height: 4rem;
+  font-size: 6rem;
+  background: transparent;
+  bottom:10rem;
+
 }
 
 .wrong{
