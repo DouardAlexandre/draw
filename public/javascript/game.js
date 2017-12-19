@@ -5,14 +5,16 @@
   var socket = io.connect();
 
   function init() {
-    // add listeners for our room buttons
-    const buttons = document.querySelectorAll('button[data-mode]');
-    for(const button of buttons) {
+   const buttons = document.querySelectorAll('button[data-mode]');
+   for(const button of buttons) {
       //console.log(button);
       button.addEventListener('click', handleRoomClick); 
     }
-  }
 
+  }
+  
+
+  
 
   document.addEventListener("DOMContentLoaded", init);
   var canvas = document.getElementById('canvas');
@@ -43,7 +45,7 @@
 
 
   function handleRoomClick() {
-    // join a room
+
 
     const start = this.getAttribute('data-mode');
     console.log(start);
@@ -56,8 +58,8 @@
       button.classList.add('hidden');
     }
 
-
-    socket.on('guess', (guess , randWord) => {
+    //chez 2 dessiner show devinez:------
+    socket.on('guess', (guess) => {
 
       console.log(guess);
       //$("#canvas").css('display' , 'none');
@@ -65,118 +67,132 @@
       newGuess.className = 'guess'; 
       document.body.appendChild(
         newGuess).textContent = guess;
-      console.log(randWord);
-      
-      
-
-
     });
 
+    //chez 1
     socket.on('wait', (wait) => {
+      //wait player
       var waitOtherPlayer = document.createElement('h2');
       waitOtherPlayer.className = 'wait'; 
       document.body.appendChild(waitOtherPlayer).textContent = wait;
-
-
+      //button && input 
       var devinez = document.createElement('button');
       devinez.id = "devinez";
-       //devinez.text = "ok";
-       $(".content").append(devinez);
-
-       var input = document.createElement('input');
-       input.type = "text";
-       input.id = "input";
-       $(".content").append(input);
-     });
-
-    socket.on('noWait', (randWord) => {
-
-      $(".wait" ).remove();
-      $("#input").css("display", "block");
-      $("#input").show().focus();
-      $("#devinez").show();
-
-      $("#devinez").click(function(){
-        var textInput = $("input").val();
-        socket.emit('textInput', textInput, randWord);
-
-      });
-
-
-
-      
-
+      $(".content").append(devinez);
+      var input = document.createElement('input');
+      input.type = "text";
+      input.id = "input";
+      $(".content").append(input);
     });
+   //chez 1 devinez enleve wait && show input button
+   socket.on('noWait', (randWord) => {
 
-    socket.on('wrong', (randWrong) => {
-      $(".wrong").remove();
-      var wrongWord = document.createElement('h2');
-      wrongWord.className = 'wrong';
-      wrongWord.innerHTML = randWrong;
-      $(".content").append(wrongWord);
+    $(".wait" ).remove();
+    $("#input").css("display", "block");
+    $("#input").show().focus();
+    $("#devinez").show();
 
+    $("#devinez").click(function(){
+      var textInput = $("input").val();
+      socket.emit('textInput', textInput, randWord);
 
     });
 
 
-    socket.on('end', (end) => {
+
+
+
+  });
+
+   socket.on('wrong', (randWrong) => {
+    $(".wrong").remove();
+    var wrongWord = document.createElement('h2');
+    wrongWord.className = 'wrong';
+    wrongWord.innerHTML = randWrong;
+    $(".content").append(wrongWord);
+
+
+  });
+
+
+   socket.on('end', (end) => {
 
      $(".wrong").remove();
      $("#input").remove();
      $("#devinez").remove();
      $(".guess").remove();
      $(".wait" ).remove();
-
+     $(".victoire" ).show();
      
      
    });
 
-  };
+ };
 
-  function drawLine(x0, y0, x1, y1, color, emit){
-    context.beginPath();
-    context.moveTo(x0, y0);
-    context.lineTo(x1, y1);
-    context.strokeStyle = color;
-    context.lineWidth = 2;
-    context.stroke();
-    context.closePath();
+ function drawLine(x0, y0, x1, y1, color, emit){
+  context.beginPath();
+  if(current.color[0] === "transparent" ) {
 
-    if (!emit) { return; }
-    var w = canvas.width;
-    var h = canvas.height;
+   context.globalCompositeOperation= "destination-out";
+   context.strokeStyle = "rgba(0,0,0,1)";
+   console.log('rrrrrrr');
+   context.moveTo(x0, y0);
+   context.lineTo(x1, y1);
+   //context.strokeStyle = color;
+ }else{
+  context.globalCompositeOperation="source-over";
+  context.moveTo(x0, y0);
+  context.lineTo(x1, y1);
+  context.strokeStyle = color;
+}
+context.lineWidth = 3;
+context.stroke();
+context.closePath();
 
-    socket.emit('drawing', {
-      x0: x0 / w,
-      y0: y0 / h,
-      x1: x1 / w,
-      y1: y1 / h,
-      color: color
-    });
-  }
+if (!emit) { return; }
+var w = canvas.width;
+var h = canvas.height;
 
-  function onMouseDown(e){
-    drawing = true;
-    current.x = e.clientX;
-    current.y = e.clientY;
-  }
+socket.emit('drawing', {
+  x0: x0 / w,
+  y0: y0 / h,
+  x1: x1 / w,
+  y1: y1 / h,
+  color: color
+});
+}
 
-  function onMouseUp(e){
-    if (!drawing) { return; }
-    drawing = false;
-    drawLine(current.x, current.y, e.clientX, e.clientY, current.color, true);
-  }
+function onMouseDown(e){
 
-  function onMouseMove(e){
-    if (!drawing) { return; }
-    drawLine(current.x, current.y, e.clientX, e.clientY, current.color, true);
-    current.x = e.clientX;
-    current.y = e.clientY;
-  }
+  drawing = true;
+  current.x = e.clientX;
+  current.y = e.clientY;
+}
 
-  function onColorUpdate(e){
-    current.color = e.target.className.split(' ')[1];
-  }
+function onMouseUp(e){
+  if (!drawing) { return; }
+  drawing = false;
+  drawLine(current.x, current.y, e.clientX, e.clientY, current.color, true);
+}
+
+function onMouseMove(e){
+  if (!drawing) { return; }
+  drawLine(current.x, current.y, e.clientX, e.clientY, current.color, true);
+  current.x = e.clientX;
+  current.y = e.clientY;
+}
+
+function onColorUpdate(e){
+
+  current.color = e.target.className.split(' ');
+  console.log(current.color);
+  if(current.color[0] === "transparent" ) {
+   $('html').css('cursor','url(../img/eraser.png), wait');
+ }else{
+  $('html').css('cursor','default');
+}
+
+}
 
   // limit the number of events per second
   function throttle(callback, delay) {

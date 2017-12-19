@@ -2,7 +2,18 @@ extends layout
 
 block content
   button.choose(data-mode ='1') Start 
-  
+  div.color
+    a.black
+    a.Yellow 
+    a.LightGreen 
+    a.DeepSkyBlue 
+    a.transparent
+  div.victoire
+    div.title
+    p.title Victoire 
+      span.points +10pts
+    a.continuer(href='/multijoueur')  Continuer
+    a.retour(href='/') Retour
   canvas(id='canvas')
   script(src='/javascript/game.js')
-  //-button.hidden(id="sendBtn") Send 
+
