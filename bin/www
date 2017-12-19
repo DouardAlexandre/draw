@@ -67,13 +67,13 @@
  socket.on('textInput', function(textInput, randWord){ 
 
    if(textInput === randWord) {
-     io.to(room).emit('end');
+     io.to(room).emit('win');
    }else{
-    var wrong = ["Pas vraiment", "C'est pas ça...","L'important c'est de participer","La prochaine fois peut-être","Il dessine si mal que ça?"];
+    var wrong = ["Pas vraiment.", "C'est pas ça...","L'important c'est de participer.","La prochaine fois peut-être.","Il dessine si mal que ça?"];
     var randWrong = wrong[Math.floor(Math.random() * wrong.length)];
-    socket.emit('wrong', randWrong);
-    console.log(randWrong);
     round++;
+    socket.emit('wrong', randWrong, round);
+
     if(round===3) {
      round=0;
      io.to(room).emit('end');
@@ -81,11 +81,9 @@
  }
 
 }); 
-
-
-
-
-
+ socket.on('timer', function(timer){ 
+  io.to(room).emit('end');
+}); 
 
  socket.on('disconnect', function() {console.log('outttttttttt')});   
 

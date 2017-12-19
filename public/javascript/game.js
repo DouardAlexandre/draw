@@ -3,8 +3,10 @@
 (function() {
   //connection entre serveur et client
   var socket = io.connect();
+  var timer = 25;
 
   function init() {
+   $('html').css('cursor','url(../img/crayon.png), default');
    const buttons = document.querySelectorAll('button[data-mode]');
    for(const button of buttons) {
       //console.log(button);
@@ -20,10 +22,12 @@
   var canvas = document.getElementById('canvas');
   var colors = document.getElementsByClassName('color');
   var context = canvas.getContext('2d');
+  $(".color" ).hide();
 
   var current = {
-    color: 'black'
+    color: "transparent"
   };
+
   var drawing = false;
 
   canvas.addEventListener('mousedown', onMouseDown, false);
@@ -39,34 +43,28 @@
 
   window.addEventListener('resize', onResize, false);
   onResize();
-  
-
-
-
 
   function handleRoomClick() {
 
 
     const start = this.getAttribute('data-mode');
-
     socket.emit('start', start);
-    
-    
+
     // deal with interface below...
     const buttons = document.querySelectorAll('button[data-mode]');
     for(const button of buttons) {
       button.classList.add('hidden');
     }
 
-    //chez 2 dessiner show devinez:------
+    //chez 2 dessiner show dessinez:------
     socket.on('guess', (guess) => {
 
-      console.log(guess);
-      //$("#canvas").css('display' , 'none');
+      $(".color" ).show();
       var newGuess  = document.createElement('h2');
       newGuess.className = 'guess'; 
-      document.body.appendChild(
-        newGuess).textContent = guess;
+      newGuess.textContent = guess;
+      document.body.appendChild(newGuess);
+      current.color = "black";
     });
 
     //chez 1
@@ -75,26 +73,48 @@
       var waitOtherPlayer = document.createElement('h2');
       waitOtherPlayer.className = 'wait'; 
       document.body.appendChild(waitOtherPlayer).textContent = wait;
-      //input guess
+      //input devinez
       var input = document.createElement('input');
       input.type = "text";
       input.id = "input";
       $(".content").append(input);
-      //button guess
+      //button devinez
       var devinez = document.createElement('button');
       devinez.id = "devinez";
       devinez.innerHTML = "OK";
       $(".content").append(devinez);
+      //texte devinez
+      var devinezMot = document.createElement('p');
+      devinezMot.className = "devinezMot";
+      devinezMot.innerHTML = "round essais";
+      $(".content").append(devinez);
+      //unable drawing
+      current.color = "transparent";
     });
+
    //chez 1 devinez enleve wait && show input button
    socket.on('noWait', (randWord) => {
 
-    $(".wait" ).remove();
-    $("#input").css("display", "block");
-    $("#input").show().focus();
-    $("#devinez").show();
+     //Timer
+     setInterval(function(){
+      seconds.textContent = timer; 
+      timer--;
+      if( timer < 0 ) {
+        socket.emit('timer', timer);
+      }
+    }, 1000);
+     var seconds  = document.createElement('h2');
+     seconds.className = 'seconds'; 
+     document.body.appendChild(seconds);
 
-    $("#devinez").click(function(){
+     console.log(timer);
+
+
+     $(".wait" ).remove();
+     $("#input").css("display", "block");
+     $("#input").show().focus();
+     $("#devinez").show();
+     $("#devinez").click(function(){
       var textInput = $("input").val();
       socket.emit('textInput', textInput, randWord);
 
@@ -104,31 +124,53 @@
 
 
 
-  });
+   });
 
-   socket.on('wrong', (randWrong) => {
+   socket.on('wrong', (randWrong, round) => {
     $(".wrong").remove();
     var wrongWord = document.createElement('h2');
     wrongWord.className = 'wrong';
-    wrongWord.innerHTML = randWrong;
+    if(round===1) {
+      wrongWord.innerHTML =  randWrong + ' Il vous reste 2 essais.';
+    }else if(round===2) {
+      wrongWord.innerHTML =  randWrong + ' Il vous reste 1 essai.';
+    }
     $(".content").append(wrongWord);
+    
 
 
   });
 
 
    socket.on('end', (end) => {
-
+     context.clearRect(0, 0, canvas.width, canvas.height);
+     current.color = "transparent";
      $(".wrong").remove();
+     $(".seconds").remove();
      $("#input").remove();
      $("#devinez").remove();
      $(".guess").remove();
      $(".wait" ).remove();
+     $(".color" ).remove();
+     $(".victoire" ).show();
+     $(".title" ).html('Défaite');
+     
+   });
+
+   socket.on('win', (win) => {
+     context.clearRect(0, 0, canvas.width, canvas.height);
+     current.color = "transparent";
+     $(".wrong").remove();
+     $(".seconds").remove();
+     $("#input").remove();
+     $("#devinez").remove();
+     $(".guess").remove();
+     $(".wait" ).remove();
+     $(".color" ).remove();
      $(".victoire" ).show();
      
      
    });
-
  };
 
  function drawLine(x0, y0, x1, y1, color, emit){
@@ -188,12 +230,11 @@ function onMouseMove(e){
 function onColorUpdate(e){
 
   current.color = e.target.className.split(' ');
-  console.log(current.color);
   if(current.color[0] === "transparent" ) {
-   $('html').css('cursor','url(../img/eraser.png), wait');
+   $('html').css('cursor','url(../img/cible.png), default');
  }else{
   //$('html').css('cursor','default');
-  $('html').css('cursor','url(../img/crayon.png), wait');
+  $('html').css('cursor','url(../img/crayon.png), default');
 }
 
 }

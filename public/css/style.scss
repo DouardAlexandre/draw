@@ -9,7 +9,7 @@
  */
 
 //Variables-------------1
- 
+
 $Londrina:'Londrina Outline', cursive;
 $Indie:'Indie Flower', cursive;
 $box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.9), 0 0 25px 0 rgba(0, 0, 0, 0.6);
@@ -43,7 +43,6 @@ $box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.9), 0 0 25px 0 rgba(0, 0, 0, 0.6);
 }
 
 body {
-  @include fullSize();
   background-image: url(../img/square.png);
   background-repeat: repeat;
   overflow:hidden;
@@ -59,6 +58,7 @@ body {
 a{
   @include selectMouse(); 
 }
+
 h2.guess{
 
   bottom:8rem;
@@ -89,11 +89,17 @@ nav.navbar.navbar-default{
   box-shadow: $box-shadow;
 }
 
+button.navbar-toggle.collapsed{
+  //position:absolute;
+  //margin-right: 4rem;
+  //top:15rem;
+}
+
 /*--------------all pug content & containers ---------------*/
 
 .container, .content{
   @include fullSize();
-  margin:0;
+  margin:0!important;
   padding:0;
   font-family:$Londrina;
 }
@@ -335,15 +341,13 @@ button.choose{
 //Victory-------------------------------x
 
 .victoire{
-
+  margin-top:10rem;
  // word-break: keep-all;
  background: transparent;
- min-height: 36rem;
  display:none;
- position: absolute;
- width:45rem;
- text-align:center;
-
+ width:100%;
+ height: 100%;
+ position:absolute;
 
 
 
@@ -358,19 +362,22 @@ button.choose{
 }
 
 .continuer{
-
- width:100%;
- height: 10rem;
- background: transparent;
- font-size: 8rem;
- border:none;
- outline:none;
- margin-bottom:2rem;
- margin-top:4rem;
- box-shadow: none;
- text-decoration: none;
+  color:black;
+  display:block;
+  width:100%;
+  height: 10rem;
+  background: transparent;
+  font-size: 8rem;
+  border:none;
+  outline:none;
+  margin-bottom:2rem;
+  margin-top:4rem;
+  box-shadow: none;
+  text-decoration: none;
 }
 .retour{
+  color:black;
+  display:block;
   background: transparent;
   width:100%;
   height: 10rem;
@@ -416,8 +423,8 @@ button.choose{
   background-color: LightGreen;
   &:hover{
     opacity:.5;
-   cursor: crosshair;
- }
+    cursor: crosshair;
+  }
 }
 .DeepSkyBlue{
   width:6rem;
@@ -437,9 +444,20 @@ button.choose{
  background-repeat: no-repeat;
  background-size: cover; 
  &:hover{
-    opacity:.9;
-    cursor: crosshair;
-  }
+  opacity:.9;
+  cursor: crosshair;
+}
 }
 
+}
+
+
+.seconds{
+  position:absolute;
+  bottom:8rem;
+  left:8rem;
+  font-family: $Londrina;
+  font-size: 8rem;
+  //@include absolutePos();
+  @include selectMouse();
 }

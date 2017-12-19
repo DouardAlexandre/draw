@@ -8,8 +8,6 @@
  *    x-Formulaires
  */
 body {
-  height: 100vh;
-  width: 100vw;
   background-image: url(../img/square.png);
   background-repeat: repeat;
   overflow: hidden;
@@ -76,7 +74,7 @@ nav.navbar.navbar-default {
 .container, .content {
   height: 100vh;
   width: 100vw;
-  margin: 0;
+  margin: 0 !important;
   padding: 0;
   font-family: "Londrina Outline", cursive; }
 
@@ -298,12 +296,12 @@ button.choose {
   user-select: none; }
 
 .victoire {
+  margin-top: 10rem;
   background: transparent;
-  min-height: 36rem;
   display: none;
-  position: absolute;
-  width: 45rem;
-  text-align: center; }
+  width: 100%;
+  height: 100%;
+  position: absolute; }
   .victoire .title {
     width: 100%;
     height: 12rem;
@@ -311,6 +309,8 @@ button.choose {
     .victoire .title .points {
       font-size: 6rem; }
   .victoire .continuer {
+    color: black;
+    display: block;
     width: 100%;
     height: 10rem;
     background: transparent;
@@ -322,6 +322,8 @@ button.choose {
     box-shadow: none;
     text-decoration: none; }
   .victoire .retour {
+    color: black;
+    display: block;
     background: transparent;
     width: 100%;
     height: 10rem;
@@ -379,3 +381,14 @@ button.choose {
     .color .transparent:hover {
       opacity: .9;
       cursor: crosshair; }
+
+.seconds {
+  position: absolute;
+  bottom: 8rem;
+  left: 8rem;
+  font-family: "Londrina Outline", cursive;
+  font-size: 8rem;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; }
