@@ -48,7 +48,7 @@
 
 
     const start = this.getAttribute('data-mode');
-    console.log(start);
+
     socket.emit('start', start);
     
     

@@ -36,25 +36,13 @@
 
     console.log('drawing to room '+num);
 
-
-    io.clients((error, clients) => {
-      if (error) throw error;
-      console.log(clients.length);
-    });
-
-
-
-
-
     // first client
     if(io.of('/').adapter.rooms[room].length === 1 ){
 
       var wait = "wait for other player";
       socket.emit('wait', wait);
-
-
     };
-
+   
     // second client
     if(io.of('/').adapter.rooms[room].length > 1 ){
 
@@ -63,7 +51,9 @@
      socket.emit('guess', guess);
      io.to(room).emit('noWait',randWord);
 
-
+     socket.on('end', function(data){ 
+      io.emit('end', data);
+    }); 
      socket.on('drawing', function(data){ 
       io.to(room).emit('drawing', data);
     }); 
@@ -76,6 +66,12 @@
  //end game
        socket.on('textInput', function(textInput, randWord){ 
 
+      if(round>3) {
+       round=0;
+       socket.emit('end');
+     }
+   }
+ }); 
 
          if(textInput === randWord) {
          // socket.emit(randWord);
@@ -101,7 +97,13 @@ io.to(room).emit('end');
       
        socket.on('disconnect', function() {console.log('outttttttttt')});   
 
-     });
+
+  });
+
+
+  socket.on('disconnect', function() {console.log('outttttttttt')});   
+
+});
 
 
 /**
