@@ -1,3 +1,12 @@
+/*
+ *    Draw css
+ *
+ *    1-Variables
+ *    2-Mixins
+ *    3-Header
+ *    x-Tools
+ *    x-Formulaires
+ */
 body {
   height: 100vh;
   width: 100vw;
@@ -5,12 +14,13 @@ body {
   background-repeat: repeat;
   overflow: hidden;
   position: relative;
-  text-align: center; }
+  text-align: center;
+  height: 100vh;
+  width: 100vw; }
   body canvas {
     height: 100vh;
     width: 100vw; }
 
-/*--------------header ---------------*/
 a {
   -moz-user-select: none;
   -ms-user-select: none;
@@ -18,7 +28,7 @@ a {
   user-select: none; }
 
 h2.guess {
-  bottom: 12rem;
+  bottom: 8rem;
   font-family: "Londrina Outline", cursive;
   font-size: 6rem;
   margin: 0;
@@ -34,7 +44,8 @@ h2.guess {
   user-select: none; }
 
 h2.wait {
-  top: 40%;
+  position: absolute;
+  bottom: 8rem;
   font-family: "Londrina Outline", cursive;
   font-size: 6rem;
   position: absolute;
@@ -58,7 +69,8 @@ nav.navbar.navbar-default {
   line-height: 6rem;
   margin: 0;
   border: none;
-  border-radius: 0; }
+  border-radius: 0;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.9), 0 0 25px 0 rgba(0, 0, 0, 0.6); }
 
 /*--------------all pug content & containers ---------------*/
 .container, .content {
@@ -106,7 +118,8 @@ a.menu {
   height: 6rem;
   width: 100vw;
   background-image: url(../img/triangles.png);
-  background-repeat: repeat; }
+  background-repeat: repeat;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.9), 0 0 25px 0 rgba(0, 0, 0, 0.6); }
 
 .footercontainer {
   text-align: center;
@@ -119,7 +132,6 @@ a.menu {
   -webkit-user-select: none;
   user-select: none; }
 
-/*------------------------------Formulaires login register-----------------------------*/
 .content {
   display: flex;
   align-items: center;
@@ -246,10 +258,10 @@ button.choose {
 
 #input {
   width: 30rem;
-  height: 4rem;
+  height: 6rem;
   bottom: 8rem;
   position: absolute;
-  border: 1px black solid;
+  border: 1px #2F4F4F dotted;
   display: none;
   font-family: "Londrina Outline", cursive;
   font-size: 6rem;
@@ -265,10 +277,10 @@ button.choose {
 #devinez {
   display: none;
   position: absolute;
-  width: 4rem;
-  height: 4rem;
+  width: 8rem;
+  height: 6rem;
   font-size: 3rem;
-  background: black;
+  background: #2F4F4F;
   bottom: 8rem;
   right: 15rem;
   border: none;
@@ -277,23 +289,30 @@ button.choose {
 
 .wrong {
   position: absolute;
-  font-size: 4rem; }
+  font-family: "Indie Flower", cursive;
+  font-size: 3rem;
+  bottom: 14rem;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; }
 
 .victoire {
   background: transparent;
   min-height: 36rem;
   display: none;
   position: absolute;
-  width: 100%; }
+  width: 45rem;
+  text-align: center; }
   .victoire .title {
     width: 100%;
-    height: 4rem;
+    height: 12rem;
     font-size: 8rem; }
     .victoire .title .points {
       font-size: 6rem; }
   .victoire .continuer {
     width: 100%;
-    height: 8rem;
+    height: 10rem;
     background: transparent;
     font-size: 8rem;
     border: none;
@@ -305,7 +324,7 @@ button.choose {
   .victoire .retour {
     background: transparent;
     width: 100%;
-    height: 8rem;
+    height: 10rem;
     outline: none;
     font-size: 8rem;
     border: none;
@@ -319,40 +338,44 @@ button.choose {
   flex-wrap: wrap;
   left: 0;
   width: 12rem;
-  height: 12rem; }
+  height: 24rem;
+  padding-bottom: 12rem; }
   .color .black {
     width: 6rem;
     height: 6rem;
     background-color: black; }
     .color .black:hover {
       opacity: .5;
-      cursor: default; }
+      cursor: crosshair; }
   .color .Yellow {
     width: 6rem;
     height: 6rem;
     background-color: Yellow; }
     .color .Yellow:hover {
       opacity: .5;
-      cursor: default; }
+      cursor: crosshair; }
   .color .LightGreen {
     width: 6rem;
     height: 6rem;
     background-color: LightGreen; }
     .color .LightGreen:hover {
       opacity: .5;
-      cursor: default; }
+      cursor: crosshair; }
   .color .DeepSkyBlue {
     width: 6rem;
     height: 6rem;
     background-color: DeepSkyBlue; }
     .color .DeepSkyBlue:hover {
       opacity: .5;
-      cursor: default; }
+      cursor: crosshair; }
   .color .transparent {
     position: absolute;
-    bottom: -12rem;
+    bottom: 0rem;
     width: 12rem;
     height: 12rem;
     background: url(../img/gomme.png);
     background-repeat: no-repeat;
     background-size: cover; }
+    .color .transparent:hover {
+      opacity: .9;
+      cursor: crosshair; }

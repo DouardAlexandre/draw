@@ -133,9 +133,6 @@
 
  function drawLine(x0, y0, x1, y1, color, emit){
   context.beginPath();
-  console.log('current : ', current.color[0]);
-  console.log('color : ', color);
-
   if(color[0] === "transparent" ) {
 
    context.globalCompositeOperation= "destination-out";

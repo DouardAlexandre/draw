@@ -1,6 +1,20 @@
+/*
+ *    Draw css
+ *
+ *    1-Variables
+ *    2-Mixins
+ *    3-Header
+ *    x-Tools
+ *    x-Formulaires
+ */
 
+//Variables-------------1
+ 
 $Londrina:'Londrina Outline', cursive;
 $Indie:'Indie Flower', cursive;
+$box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.9), 0 0 25px 0 rgba(0, 0, 0, 0.6);
+
+//Mixins----------------2
 
 @mixin selectMouse() {
   -moz-user-select: none;
@@ -17,6 +31,7 @@ $Indie:'Indie Flower', cursive;
  margin-right: auto;
  margin-left: auto;
 }
+
 @mixin fullSize() {
  height: 100vh; 
  width: 100vw; 
@@ -34,17 +49,19 @@ body {
   overflow:hidden;
   position: relative;
   text-align: center;
+  @include fullSize();
   canvas { 
     @include fullSize(); 
   }
 }
 
-/*--------------header ---------------*/
+//header -----------------3
 a{
   @include selectMouse(); 
 }
 h2.guess{
-  bottom:12rem;
+
+  bottom:8rem;
   font-family : $Londrina; 
   font-size: 6rem;
   margin:0;
@@ -52,7 +69,8 @@ h2.guess{
   @include selectMouse(); 
 }
 h2.wait{
-  top:40%;
+  position:absolute;
+  bottom:8rem;
   font-family: $Londrina;
   font-size: 6rem;
   @include absolutePos();
@@ -68,6 +86,7 @@ nav.navbar.navbar-default{
   margin:0;
   border:none;
   border-radius: 0;
+  box-shadow: $box-shadow;
 }
 
 /*--------------all pug content & containers ---------------*/
@@ -123,6 +142,7 @@ a.menu{
   height: 6rem;
   width: 100vw; 
   @include triangles();
+  box-shadow:$box-shadow;
 }
 
 .footercontainer{
@@ -134,7 +154,7 @@ a.menu{
   @include selectMouse(); 
 }
 
-/*------------------------------Formulaires login register-----------------------------*/
+//Formulaires -------------*/
 
 
 .content{
@@ -276,10 +296,10 @@ button.choose{
 
 #input{
  width:30rem;
- height:4rem;
+ height:6rem;
  bottom:8rem;
  position: absolute;
- border: 1px black solid;
+ border: 1px #2F4F4F dotted;
  display:none;
  font-family: $Londrina;
  font-size: 6rem;
@@ -294,10 +314,10 @@ button.choose{
 #devinez{
   display:none;
   position: absolute;
-  width:4rem;
-  height: 4rem;
+  width:8rem;
+  height: 6rem;
   font-size: 3rem;
-  background: black;
+  background: #2F4F4F;
   bottom:8rem;
   right:15rem;
   border:none;
@@ -307,20 +327,30 @@ button.choose{
 
 .wrong{
   position: absolute;
-  font-size: 4rem;
+  font-family:$Indie;
+  font-size: 3rem;
+  bottom:14rem;
+  @include selectMouse();
 }
+//Victory-------------------------------x
 
 .victoire{
+
+ // word-break: keep-all;
  background: transparent;
  min-height: 36rem;
  display:none;
  position: absolute;
- width:100%;
+ width:45rem;
+ text-align:center;
+
+
+
 
  
  .title{
   width:100%;
-  height: 4rem;
+  height: 12rem;
   font-size: 8rem;
   .points{
     font-size: 6rem;
@@ -330,7 +360,7 @@ button.choose{
 .continuer{
 
  width:100%;
- height: 8rem;
+ height: 10rem;
  background: transparent;
  font-size: 8rem;
  border:none;
@@ -343,7 +373,7 @@ button.choose{
 .retour{
   background: transparent;
   width:100%;
-  height: 8rem;
+  height: 10rem;
   outline:none;
   font-size: 8rem;
   border:none;
@@ -351,6 +381,7 @@ button.choose{
   text-decoration: none;
 }
 }
+//Tools----------------------x
 
 .color{
  background-color: white;
@@ -359,15 +390,15 @@ button.choose{
  flex-wrap: wrap;
  left:0;
  width:12rem;
- height: 12rem;
- 
+ height: 24rem;
+ padding-bottom:12rem;
  .black{
   width:6rem;
   height: 6rem;
   background-color: black;
   &:hover{
     opacity:.5;
-    cursor: default;
+    cursor: crosshair;
   }
 }
 .Yellow{
@@ -376,7 +407,7 @@ button.choose{
   background-color: Yellow;
   &:hover{
     opacity:.5;
-    cursor: default;
+    cursor: crosshair;
   }
 }
 .LightGreen {
@@ -385,7 +416,7 @@ button.choose{
   background-color: LightGreen;
   &:hover{
     opacity:.5;
-   cursor: default;
+   cursor: crosshair;
  }
 }
 .DeepSkyBlue{
@@ -394,18 +425,21 @@ button.choose{
   background-color: DeepSkyBlue;
   &:hover{
     opacity:.5;
-    cursor: default;
+    cursor: crosshair;
   }
 }
 .transparent{
  position: absolute;
- bottom:-12rem;
+ bottom:0rem;
  width:12rem;
  height: 12rem;
  background:url(../img/gomme.png);
  background-repeat: no-repeat;
  background-size: cover; 
-
+ &:hover{
+    opacity:.9;
+    cursor: crosshair;
+  }
 }
 
 }
