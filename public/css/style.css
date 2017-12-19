@@ -1,6 +1,6 @@
 body {
-  width: 100vw;
   height: 100vh;
+  width: 100vw;
   background-image: url(../img/square.png);
   background-repeat: repeat;
   overflow: hidden;
@@ -13,13 +13,14 @@ body {
 /*--------------header ---------------*/
 a {
   -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none; }
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; }
 
 h2.guess {
   bottom: 12rem;
   font-family: "Londrina Outline", cursive;
-  font-size: 10rem;
+  font-size: 6rem;
   margin: 0;
   position: absolute;
   margin: 0;
@@ -28,13 +29,14 @@ h2.guess {
   margin-right: auto;
   margin-left: auto;
   -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none; }
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; }
 
 h2.wait {
   top: 40%;
   font-family: "Londrina Outline", cursive;
-  font-size: 10rem;
+  font-size: 6rem;
   position: absolute;
   margin: 0;
   left: 0;
@@ -42,8 +44,9 @@ h2.wait {
   margin-right: auto;
   margin-left: auto;
   -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none; }
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; }
 
 nav.navbar.navbar-default {
   position: absolute;
@@ -112,8 +115,9 @@ a.menu {
 .footercontainer p {
   line-height: 6rem;
   -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none; }
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; }
 
 /*------------------------------Formulaires login register-----------------------------*/
 .content {
@@ -131,7 +135,7 @@ a.menu {
   background: transparent;
   border: 1px solid black;
   font-size: 2rem;
-  font-family: 'Indie Flower', cursive;
+  font-family: "Indie Flower", cursive;
   margin: auto;
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -187,12 +191,13 @@ a.menu {
   bottom: 0;
   margin: auto;
   -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none; }
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; }
 
 .modejeu {
-  width: 100%;
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
   position: relative; }
 
 .mode {
@@ -235,11 +240,14 @@ button.choose {
   background: transparent;
   position: absolute;
   -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none; }
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; }
 
 #input {
-  bottom: 15rem;
+  width: 30rem;
+  height: 4rem;
+  bottom: 8rem;
   position: absolute;
   border: 1px black solid;
   display: none;
@@ -247,8 +255,9 @@ button.choose {
   font-size: 6rem;
   background: transparent;
   -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none; }
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; }
 
 #input:focus {
   outline: none; }
@@ -258,9 +267,13 @@ button.choose {
   position: absolute;
   width: 4rem;
   height: 4rem;
-  font-size: 6rem;
-  background: transparent;
-  bottom: 10rem; }
+  font-size: 3rem;
+  background: black;
+  bottom: 8rem;
+  right: 15rem;
+  border: none;
+  color: white;
+  font-family: "Indie Flower", cursive; }
 
 .wrong {
   position: absolute;
@@ -311,21 +324,35 @@ button.choose {
     width: 6rem;
     height: 6rem;
     background-color: black; }
+    .color .black:hover {
+      opacity: .5;
+      cursor: default; }
   .color .Yellow {
     width: 6rem;
     height: 6rem;
     background-color: Yellow; }
+    .color .Yellow:hover {
+      opacity: .5;
+      cursor: default; }
   .color .LightGreen {
     width: 6rem;
     height: 6rem;
     background-color: LightGreen; }
+    .color .LightGreen:hover {
+      opacity: .5;
+      cursor: default; }
   .color .DeepSkyBlue {
     width: 6rem;
     height: 6rem;
     background-color: DeepSkyBlue; }
+    .color .DeepSkyBlue:hover {
+      opacity: .5;
+      cursor: default; }
   .color .transparent {
     position: absolute;
     bottom: -12rem;
     width: 12rem;
     height: 12rem;
-    background-color: red; }
+    background: url(../img/gomme.png);
+    background-repeat: no-repeat;
+    background-size: cover; }

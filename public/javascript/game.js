@@ -75,14 +75,16 @@
       var waitOtherPlayer = document.createElement('h2');
       waitOtherPlayer.className = 'wait'; 
       document.body.appendChild(waitOtherPlayer).textContent = wait;
-      //button && input 
-      var devinez = document.createElement('button');
-      devinez.id = "devinez";
-      $(".content").append(devinez);
+      //input guess
       var input = document.createElement('input');
       input.type = "text";
       input.id = "input";
       $(".content").append(input);
+      //button guess
+      var devinez = document.createElement('button');
+      devinez.id = "devinez";
+      devinez.innerHTML = "OK";
+      $(".content").append(devinez);
     });
    //chez 1 devinez enleve wait && show input button
    socket.on('noWait', (randWord) => {
@@ -131,11 +133,14 @@
 
  function drawLine(x0, y0, x1, y1, color, emit){
   context.beginPath();
-  if(current.color[0] === "transparent" ) {
+  console.log('current : ', current.color[0]);
+  console.log('color : ', color);
+
+  if(color[0] === "transparent" ) {
 
    context.globalCompositeOperation= "destination-out";
    context.strokeStyle = "rgba(0,0,0,1)";
-   console.log('rrrrrrr');
+   context.lineWidth = 25;
    context.moveTo(x0, y0);
    context.lineTo(x1, y1);
    //context.strokeStyle = color;
@@ -144,8 +149,9 @@
   context.moveTo(x0, y0);
   context.lineTo(x1, y1);
   context.strokeStyle = color;
+  context.lineWidth = 3;
 }
-context.lineWidth = 3;
+
 context.stroke();
 context.closePath();
 
@@ -189,7 +195,8 @@ function onColorUpdate(e){
   if(current.color[0] === "transparent" ) {
    $('html').css('cursor','url(../img/eraser.png), wait');
  }else{
-  $('html').css('cursor','default');
+  //$('html').css('cursor','default');
+  $('html').css('cursor','url(../img/crayon.png), wait');
 }
 
 }
