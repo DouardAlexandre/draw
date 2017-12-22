@@ -43,14 +43,16 @@ $box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.9), 0 0 25px 0 rgba(0, 0, 0, 0.6);
 }
 
 body {
+  @include fullSize();
   background-image: url(../img/square.png);
   background-repeat: repeat;
+  border:none!important;
   overflow:hidden;
   position: relative;
   text-align: center;
   @include fullSize();
   canvas { 
-    @include fullSize(); 
+    @include fullSize();  
   }
 }
 
@@ -58,6 +60,20 @@ body {
 a{
   @include selectMouse(); 
 }
+.navbar-default .navbar-nav>li>a {
+  color: white;
+  background-color:black!important;
+}
+.navbar-toggle{
+  background-color:black!important;
+  &:hover{
+    background-color:black!important;
+  }
+  &:active{
+    background-color:black!important;
+  }
+}
+
 
 h2.guess{
 
@@ -76,6 +92,9 @@ h2.wait{
   @include absolutePos();
   @include selectMouse(); 
 }
+.navbar-header{
+  border:none!important;
+}
 nav.navbar.navbar-default{
   position:absolute;
   height: 6rem;
@@ -89,17 +108,14 @@ nav.navbar.navbar-default{
   box-shadow: $box-shadow;
 }
 
-button.navbar-toggle.collapsed{
-  //position:absolute;
-  //margin-right: 4rem;
-  //top:15rem;
+.navbar-collapse{
+  border:none!important;
 }
-
-/*--------------all pug content & containers ---------------*/
+/*---- content & containers ---------------*/
 
 .container, .content{
   @include fullSize();
-  margin:0!important;
+  margin:0;
   padding:0;
   font-family:$Londrina;
 }
@@ -136,8 +152,9 @@ a.menu{
   color:black;
   margin:auto;
   outline:none;
-  text-decoration: none;
   font-size: 12rem;
+  text-decoration: none !important;
+  
 }
 /*------------------------------Footer-----------------------------*/
 
@@ -234,8 +251,6 @@ a.menu{
   max-width: 100%;
   height: 100%;
 }
-
-/*-----------------------------------------------------------*/
 
 .penlogo{
   transform:rotate(80deg);
@@ -341,16 +356,14 @@ button.choose{
 //Victory-------------------------------x
 
 .victoire{
-  margin-top:10rem;
+
  // word-break: keep-all;
  background: transparent;
+ min-height: 36rem;
  display:none;
- width:100%;
- height: 100%;
- position:absolute;
-
-
-
+ position: absolute;
+ width:45rem;
+ text-align:center;
  
  .title{
   width:100%;
@@ -362,22 +375,19 @@ button.choose{
 }
 
 .continuer{
-  color:black;
-  display:block;
-  width:100%;
-  height: 10rem;
-  background: transparent;
-  font-size: 8rem;
-  border:none;
-  outline:none;
-  margin-bottom:2rem;
-  margin-top:4rem;
-  box-shadow: none;
-  text-decoration: none;
+
+ width:100%;
+ height: 10rem;
+ background: transparent;
+ font-size: 8rem;
+ border:none;
+ outline:none;
+ margin-bottom:2rem;
+ margin-top:4rem;
+ box-shadow: none;
+ text-decoration: none;
 }
 .retour{
-  color:black;
-  display:block;
   background: transparent;
   width:100%;
   height: 10rem;
@@ -451,13 +461,18 @@ button.choose{
 
 }
 
+@media (min-width: 768px) {
+  a.nav_links{
+    background-color:transparent!important;
+    
+  }
+  .navbar-default .navbar-nav>li>a {
+    color: white;
+    background-color:transparent!important;
+    &:hover{
+      color:white;
+      cursor:pointer;
+    }
+  }
 
-.seconds{
-  position:absolute;
-  bottom:8rem;
-  left:8rem;
-  font-family: $Londrina;
-  font-size: 8rem;
-  //@include absolutePos();
-  @include selectMouse();
 }
