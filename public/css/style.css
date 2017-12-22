@@ -397,6 +397,12 @@ button.choose {
       opacity: .9;
       cursor: crosshair; }
 
+.seconds {
+  position: absolute;
+  bottom: 4rem;
+  font-family: "Londrina Outline", cursive;
+  font-size: 6rem; }
+
 @media (min-width: 768px) {
   a.nav_links {
     background-color: transparent !important; }
